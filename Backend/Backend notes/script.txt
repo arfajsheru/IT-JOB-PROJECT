@@ -1,0 +1,37 @@
+
+-->const app = express();
+ans: Iska matlab hai ki aap ek Express application object create kar rahe ho. Yeh application object aapko web server banane ke liye zaroori tools (methods) provide karta hai.
+
+-->app.use(express.json());
+ans: express.json() ek middleware function hai jo incoming request body me JSON data ko automatically parse karta hai. Yeh request ke body me se JSON data ko read karke, usse JavaScript object me convert kar deta hai, taaki aapko us data ke saath aasan tareeke se kaam kar sakein.
+
+-->app.use(express.urlencoded({extended:true}));
+ans: express.urlencoded() ek middleware hai jo incoming request body ko URL-encoded format me parse karta hai, jisse aapko manually parsing karne ki zaroorat nahi hoti. Jab HTML forms ke data ko server par bheja jaata hai, to yeh middleware use hota hai taaki request body ko req.body me JavaScript object ke form me access kar sakein.
+{exptend:true}= extended option decide karta hai ki aapko complex data structures ko kaise handle karna hai. or Iska matlab hai ki aap nested objects ko parse kar sakte ho (like arrays or objects inside other objects).
+
+
+-->app.use(cookieParser());
+ans: app.use(cookieParser()); ek middleware hai jo request ke cookies ko parse karta hai. Iska matlab hai ki jab client cookies bhejta hai, to aap easily req.cookies ke through unhe access kar sakte ho.
+// cookieParser middleware ko use karna
+app.use(cookieParser());
+
+// Request me cookies ko access karna
+app.get('/check-cookie', (req, res) => {
+    console.log(req.cookies.username);  // Output: John
+    console.log(req.cookies.sessionId);  // Output: 12345
+    res.send('Cookies accessed successfully');
+});
+
+-->app.use(cors(corsOptions));
+ans: const corsOptions = {
+    origin: "http://localhost:5173",  // Allow requests from this frontend
+    credentials: true                 // Allow cookies and credentials
+};
+app.use(cors(corsOptions)); // Apply CORS middleware
+
+
+
+arfajsheru
+
+
+arfaj@ar
