@@ -6,7 +6,6 @@ export const register = async (req, res) => {
   try {
     // check if all required fields are provided
     const { fullname, email, password, phoneNumber, role } = req.body;
-    console.log(fullname, email, password, phoneNumber, role )
     if (!fullname || !email || !password || !role || !phoneNumber) {
       return res.status(400).json({
         message: "Somthing is missing",
@@ -52,7 +51,6 @@ export const login = async (req, res) => {
   try {
     // check if all required fields are provided
     const { email, password, role } = req.body;
-    console.log(email, password, role )
     if (!email || !password || !role) {
       return res.status(400).json({
         message: "Somthing is missing",
@@ -87,7 +85,6 @@ export const login = async (req, res) => {
     }
 
     // generate a token
-
     const tokenData = {
       userId: user._id,
     };

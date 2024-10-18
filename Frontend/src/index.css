@@ -35,3 +35,44 @@
       50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
       75%, 100%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
   }
+
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #fff; /* Text color for buttons */
+    background-color: #2cf5c3; /* Background color */
+    border-radius: 50%; /* Round buttons */
+    width: 40px; /* Width of the button */
+    height: 40px; /* Height of the button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10; /* Ensure buttons are on top */
+  }
+  
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 20px; /* Size of the arrow icon */
+    color: black;
+    font-weight: bold;
+  }
+  
+  .swiper-button-next {
+    right: 10px; /* Distance from the right edge */
+  }
+  
+  .swiper-button-prev {
+    left: 10px; /* Distance from the left edge */
+  }
+  
+  @media (max-width:640px) {
+    .swiper-button-next, .swiper-button-prev{
+        width: 30px;
+        height: 30px;
+    }
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      font-size: 10px;
+    }
+  
+  }
