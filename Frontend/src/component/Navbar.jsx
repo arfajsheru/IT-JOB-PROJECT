@@ -1,9 +1,10 @@
 import { CgProfile } from "react-icons/cg";
 import { TbLogout2 } from "react-icons/tb";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const user = false;
+  const {user} = useSelector((store) => store.auth)
 
   return (
     <div className="bg-white py-2">
@@ -14,21 +15,21 @@ const Navbar = () => {
           </h1>
         </div>
         <div className="flex items-center gap-3 sm:gap-5">
-          <ul className="flex items-center gap-2 sm:gap-5 font-medium text-sm sm:text-base">
-            <li>Home</li>
-            <li>Jobs</li>
-            <li>Browse</li>
+          <ul className="flex items-center gap-2 sm:gap-5 font-medium text-sm sm:text-base font-font2 cursor-pointer">
+            <li><Link to="/" >Home</Link></li>
+            <li><Link to="/jobs" >Jobs</Link></li>
+            <li><Link to="/browse" >Browse</Link></li>
           </ul>
 
           {!user ? (
             <div className="flex gap-2 sm:gap-3">
               <Link to={"/login"}>
-                <button className="px-3 py-1 text-sm sm:text-lg font-medium rounded-sm border border-black bg-transparent hover:bg-mycolor transition duration-200">
+                <button className="px-3 py-1 text-sm sm:text-lg font-medium rounded-sm border border-black bg-transparent hover:bg-mycolor transition duration-200 font-font2">
                   Login
                 </button>
               </Link>
               <Link to={"/signup"}>
-                <button className="px-3 py-1 text-sm sm:text-lg font-medium rounded-sm border border-black bg-mycolor hover:bg-transparent transition duration-200">
+                <button className="px-3 py-1 text-sm sm:text-lg font-medium rounded-sm border border-black bg-mycolor hover:bg-transparent transition duration-200 font-font2">
                   Sign up
                 </button>
               </Link>
@@ -61,7 +62,7 @@ const Navbar = () => {
                   <div className="flex items-center gap-2 sm:gap-3">
                     <CgProfile className="text-2xl sm:text-3xl ml-2" />
                     <p className="text-sm sm:text-md font-medium hover:underline ml-2 sm:ml-3">
-                      View Profile
+                      <Link to="/profile">View Profile</Link>
                     </p>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">

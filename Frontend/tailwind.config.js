@@ -11,7 +11,10 @@ export default {
         mecolor: '#FF6F61', // Custom color
       },
       fontFamily: {
-        "title": ["Noto Serif Oriya", "serif"]
+        "title": ["Noto Serif Oriya", "serif"],
+        "font2": ["Roboto Slab", "serif"],
+        "font3": ["Noto Serif", "serif"],
+        "font4": ["Noto Sans TC", "serif"],
       }
     },
   },
