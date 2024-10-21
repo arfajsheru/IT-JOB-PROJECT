@@ -1,7 +1,10 @@
 import React from "react";
 import { BiSolidSave } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const JobCard = () => {
+    const jobId = "fdjflajeoijkjlkfdja"
+    const navigate = useNavigate();
   return (
     <div className="p-5 rounded-md bg-slate-200 shadow-xl border">
       <div className="flex flex-col gap-1">
@@ -39,7 +42,7 @@ const JobCard = () => {
 
 
       <div className="flex gap-2 mt-3">
-        <button className="px-2 py-1 border border-gray-400 rounded-md bg-mecolor text-sm font-medium font-font2">Details</button>
+        <button onClick={() => navigate(`/jobdetails/:${jobId}`)} className="px-2 py-1 border border-gray-400 rounded-md bg-mecolor text-sm font-medium font-font2">Details</button>
         <button className="px-2 py-1 border border-gray-400 rounded-md bg-mycolor text-sm font-medium font-font2">Save For Later</button>
       </div>
       </div>

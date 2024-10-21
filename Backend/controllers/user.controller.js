@@ -137,12 +137,13 @@ export const logout = (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
+    console.log(email, phoneNumber, bio, skills, fullname);
     const file = req.file;
 
     // split skills string into array and remove any empty strings
     let skillsArray;
     if(skills) {
-      skillsArray = skills.split(",");
+      skillsArray = skills.split(',');
     }
     const userId = req.id;
     let user = await User.findOne({_id: userId});
