@@ -24,7 +24,7 @@ const Profile = () => {
               <div>
                 <img
                   className="w-16 h-16 border-[3px] rounded-md border-y-black border-x-mecolor"
-                  src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
+                  src={user?.profile?.profilePhoto}
                   alt=""
                 />
               </div>
@@ -77,14 +77,14 @@ const Profile = () => {
 
           {/* Resume */}
           <div className="flex flex-col">
-            <label className="text-lg font-bold">{user?.profile?.resume}</label>
+            <label className="text-lg font-bold">Resume</label>
             {isresume ? (
               <a
-                href="https://cr-hotel.vercel.app"
-                target="_blank"
-                className="w-[100px] text-blue-500 hover:underline "
+                href={user?.profile?.resume}
+                target="blank"
+                className="text-blue-500 cursor-pointer hover:underline"
               >
-                Arfaj sheru
+                {user?.profile?.resumeOriginalName}
               </a>
             ) : (
                 <span className="text-sm text-gray-500 ">Resume not added</span>

@@ -39,6 +39,7 @@ const UpdateProfile = ({ isOpen, setIsOpen }) => {
         formData.append("file", input.file);
       } 
 
+      setLoading(true)
       try {
         const res = await axios.post(`${USE_API_END_POINT}/profile/update`, formData, {
           headers: {
@@ -54,11 +55,14 @@ const UpdateProfile = ({ isOpen, setIsOpen }) => {
       } catch (error) {
         console.log(error);
         toast.error(error.response.data.message);
+      } finally{
+        setLoading(false)
       }
 
       setIsOpen(!isOpen);
       console.log(input)
     }
+
 
 
   return (
@@ -99,7 +103,7 @@ const UpdateProfile = ({ isOpen, setIsOpen }) => {
                 </div>
                 <div className="flex justify-between items-center">
                     <label className="w-[30%] font-font4 text-sm md:text-lg text-right">Skills : </label>
-                    <input className="w-[70%] flex-1 ml-3 border border-gray-400 py-1 rounded-sm px-2" onChange={changeEventHandler} name="skills" value={input.skills} type="text" placeholder="update skills" />
+                    <input className="w-[70%] flex-1 ml-3 border border-gray-400 py-1 rounded-sm px-2" onChange={changeEventHandler} name="skills" value={input.skills} placeholder="update skills" />
                 </div>
                 <div className="flex justify-between items-center">
                     <label className="w-[30%] font-font4 text-sm md:text-lg text-right">Resume:</label>

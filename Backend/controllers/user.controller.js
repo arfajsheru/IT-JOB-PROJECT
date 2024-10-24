@@ -1,6 +1,10 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudnary.js";
+
+
 
 export const register = async (req, res) => {
   try {
@@ -13,6 +17,10 @@ export const register = async (req, res) => {
       });
     }
 
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content)
     // check if the user already exits
     const user = await User.findOne({ email });
     if (user) {
@@ -32,6 +40,9 @@ export const register = async (req, res) => {
       password: hashpassword,
       phoneNumber,
       role,
+      profile: {
+        profilePhoto: cloudResponse.secure_url
+      }
     });
 
     return res.status(200).json({
@@ -137,17 +148,24 @@ export const logout = (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
-    console.log(email, phoneNumber, bio, skills, fullname);
-    const file = req.file;
+
+
+    const file = req.file; // Aap jo code dekh rahe ho, usme teen main steps hain: file ko process karna, usse Data URI me convert karna, aur usko Cloudinary pe upload karna. Main isko step-by-step samjhata hoon.
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    
 
     // split skills string into array and remove any empty strings
     let skillsArray;
-    if(skills) {
-      skillsArray = skills.split(',');
+    if (skills) {
+      // Split the skills by comma, then trim each skill and remove quotes
+      skillsArray = skills.split(",").map(skill => skill.trim().replace(/^["']|["']$/g, ""));
+      console.log("Skills Array: ", skillsArray);
     }
     const userId = req.id;
     let user = await User.findOne({_id: userId});
 
+  
     // check if user found or not
     if (!user) {
       return res.status(400).json({
@@ -156,12 +174,19 @@ export const updateProfile = async (req, res) => {
       });
     }
 
+
+
     // update profile picture if provided
     if(fullname) user.fullname = fullname;
     if(email) user.email = email;
     if(phoneNumber) user.phoneNumber = phoneNumber;
     if(bio) user.profile.bio = bio;
     if(skillsArray) user.profile.skills = skillsArray;
+
+    if(cloudResponse){
+      user.profile.resume = cloudResponse.secure_url;  // update resume link in the user's profile document.
+      user.profile.resumeOriginalName = file.originalname; // save the original name in the profile document.
+    }
 
     await user.save();
 

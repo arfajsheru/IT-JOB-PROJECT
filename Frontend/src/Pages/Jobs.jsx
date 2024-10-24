@@ -3,10 +3,12 @@ import Navbar from "../component/Navbar";
 import FilterJobs from "../component/FilterJobs";
 import JobCard from "../component/JobCard";
 import { RiFilter3Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 const Jobs = () => {
   const jobs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Example job IDs or data
 
+  const {allJobs} = useSelector(store => store.job)
   const [FilterOpen, setFilterOpen] = useState(false);
 
   return (
@@ -37,14 +39,14 @@ const Jobs = () => {
               </h1>
             </div>
 
-            {jobs.length <= 0 ? (
+            {allJobs?.length <= 0 ? (
               <div className="flex items-center justify-center h-[70vh] text-3xl md:text-5xl font-bold text-gray-200 ">
                 Jobs Not Found
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 justify-center">
-                {jobs.map((job, index) => (
-                  <JobCard key={index} jobData={job} />
+                {allJobs?.map((job) => (
+                  <JobCard key={job?._id} job={job} />
                 ))}
               </div>
             )}
